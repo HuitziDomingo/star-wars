@@ -1,14 +1,20 @@
-import { createContext } from 'react'
+import { createContext, useState } from 'react'
 
 export const DataContext = createContext()
 
-const num = 5
-
 export const DataProvider = ({ children }) => {
+    const [num, setNum] = useState(5)
+
+    const [favorites, setFavorites] = useState([])
+
     return (
-        <DataContext.Provider value={{ num }}>
+        <DataContext.Provider value={{
+            num,
+            setNum,
+            favorites,
+            setFavorites
+        }}>
             {children}
         </DataContext.Provider>
-
     )
 }

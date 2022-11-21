@@ -6,7 +6,7 @@ import NavBar from '../components/NavBar'
 import { DataContext } from '../context/DataContext'
 
 const Inicio = () => {
-    const { num } = useContext(DataContext)
+    const { favorites, setFavorites } = useContext(DataContext)
 
     const [people, setPeople] = useState([])
     const [page, setPage] = useState(1)
@@ -16,7 +16,31 @@ const Inicio = () => {
         let loading = await People(page)
         setPeople(loading.results)
         setLoading(true)
+    }
 
+    const addToFavorites = item => {
+        const newFavorite = [...favorites, item].filter((value, index, self) => {
+            return index === self.findIndex(t => {
+                return t.name === value.name
+            })
+        })
+        setFavorites(newFavorite)
+    }
+
+    const removeFromFavorites = item => {
+        const newFavorite = [...favorites].filter(value => {
+            return value.name !== item.name
+        })
+        setFavorites(newFavorite)
+    }
+
+    const canShowFavorite = item => {
+        let canShow = true
+        const value = favorites.find(t => t.name === item.name) 
+        if(value){
+            canShow = false
+        }
+        return canShow
     }
 
     useEffect(() => {
@@ -49,28 +73,42 @@ const Inicio = () => {
                         >
                             {
                                 page < 10 ?
-                                    people && people.map(people => (
-                                        <Grid sm={12} md={5} key={people.name} style={{ marginBottom: 30 }}>
+                                    people && people.map(person => (
+                                        <Grid sm={12} md={5} key={person.name} style={{ marginBottom: 30 }}>
                                             <Card css={{ mw: "330px" }} >
                                                 <Card.Header>
-                                                    <Text>{people.name}</Text>
+                                                    <Text>{person.name}</Text>
                                                 </Card.Header>
                                                 <Card.Divider />
                                                 <Card.Body css={{ py: "$10" }}>
                                                     <p>
-                                                        {people.height === 'unknown' ? 'Altura Desconocida' : `${people.height} cm`}
+                                                        {person.height === 'unknown' ? 'Altura Desconocida' : `${person.height} cm`}
                                                     </p>
                                                     <p>
-                                                        {people.mass === 'unknown' ? 'Peso Desconocido' : `${people.mass} kg`}
+                                                        {person.mass === 'unknown' ? 'Peso Desconocido' : `${person.mass} kg`}
                                                     </p>
                                                     <p>
-                                                        Edad: {people.birth_year === 'unknown' ? 'Desconocida' : people.birth_year}
+                                                        Edad: {person.birth_year === 'unknown' ? 'Desconocida' : person.birth_year}
                                                     </p>
                                                 </Card.Body>
                                                 <Card.Divider />
                                                 <Card.Footer>
                                                     <Row justify="flex-end">
-                                                        <Button size="sm">Favorito</Button>
+                                                        {
+                                                            canShowFavorite(person)
+                                                                ?
+                                                                <Button size="sm" onClick={() => addToFavorites(person)}>Favorito</Button>
+                                                                :
+                                                                null
+                                                        }
+                                                        {
+                                                            canShowFavorite(person)
+                                                                ?
+                                                                null
+                                                                :
+                                                                <Button size="sm" color="error" onClick={() => removeFromFavorites(person)}>Remover</Button>
+                                                        }
+                                                        {/* <Button size="sm" onClick={() => addToFavorites(person)}>Favorito</Button> */}
                                                     </Row>
                                                 </Card.Footer>
                                             </Card>
