@@ -5,13 +5,13 @@ import { DataContext } from '../context/DataContext'
 
 
 const NavBar = () => {
-  const { favorites } = useContext(DataContext)
+  // const { favorites } = useContext(DataContext)
 
   const { type, isDark } = useTheme()
   const handleChange = () => {
-    const nextTheme = isDark ? 'light' : 'dark';
-    window.localStorage.setItem('data-theme', nextTheme); // you can use any storage
-    changeTheme(nextTheme);
+    const nextTheme = isDark ? 'light' : 'dark'
+    window.localStorage.setItem('data-theme', nextTheme)
+    changeTheme(nextTheme)
   }
   return (
       <Navbar isBordered style={{ marginBottom: 30 }}>
@@ -26,7 +26,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink to="/favoritos" >
             Favoritos
-            ({favorites.length})
+            {/* ({favorites.length}) */}
           </NavLink>
           {/* The current theme is: {type} */}
           <Switch

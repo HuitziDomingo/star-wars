@@ -47,8 +47,6 @@ const Inicio = () => {
         loadData()
     }, [page])
 
-
-
     return (
         <>
             {
