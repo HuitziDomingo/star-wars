@@ -5,7 +5,7 @@ import { DataContext } from '../context/DataContext'
 
 
 const NavBar = () => {
-  // const { favorites } = useContext(DataContext)
+  const { favorites } = useContext(DataContext)
 
   const { type, isDark } = useTheme()
   const handleChange = () => {
@@ -26,7 +26,7 @@ const NavBar = () => {
           </NavLink>
           <NavLink to="/favoritos" >
             Favoritos
-            {/* ({favorites.length}) */}
+            ({favorites.length})
           </NavLink>
           {/* The current theme is: {type} */}
           <Switch
