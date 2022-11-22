@@ -14,10 +14,11 @@ const NavBar = () => {
     changeTheme(nextTheme);
   }
   return (
-    <div>
       <Navbar isBordered style={{ marginBottom: 30 }}>
         <Navbar.Brand>
+        <NavLink to="/" >
           Callytek
+          </NavLink>
         </Navbar.Brand>
         <Navbar.Content hideIn="xs">
           <NavLink to="/" >
@@ -35,7 +36,6 @@ const NavBar = () => {
 
         </Navbar.Content>
       </Navbar>
-    </div>
   )
 }
 

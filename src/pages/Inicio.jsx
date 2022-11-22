@@ -28,10 +28,10 @@ const Inicio = () => {
     }
 
     const removeFromFavorites = item => {
-        const newFavorite = [...favorites].filter(value => {
+        const removeFavorite = [...favorites].filter(value => {
             return value.name !== item.name
         })
-        setFavorites(newFavorite)
+        setFavorites(removeFavorite)
     }
 
     const canShowFavorite = item => {
@@ -97,18 +97,10 @@ const Inicio = () => {
                                                         {
                                                             canShowFavorite(person)
                                                                 ?
-                                                                <Button size="sm" onClick={() => addToFavorites(person)}>Favorito</Button>
+                                                                <Button size="sm" shadow onClick={() => addToFavorites(person)}>Favorito</Button>
                                                                 :
-                                                                null
+                                                                <Button size="sm" shadow color="error" onClick={() => removeFromFavorites(person)}>Remover</Button>
                                                         }
-                                                        {
-                                                            canShowFavorite(person)
-                                                                ?
-                                                                null
-                                                                :
-                                                                <Button size="sm" color="error" onClick={() => removeFromFavorites(person)}>Remover</Button>
-                                                        }
-                                                        {/* <Button size="sm" onClick={() => addToFavorites(person)}>Favorito</Button> */}
                                                     </Row>
                                                 </Card.Footer>
                                             </Card>
